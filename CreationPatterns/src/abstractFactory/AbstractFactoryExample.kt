@@ -100,7 +100,7 @@ fun makeCook(factory: CookFactory, name : String) : Cook {
     return factory.getInstance(name)
 }
 
-fun main(args : Array<String>){
+fun main() {
     val burgerFactory = BurgerCookFactory()
     val pizzaFactory = PizzaCookFactory()
 

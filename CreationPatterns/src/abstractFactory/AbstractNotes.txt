@@ -1,2 +1,0 @@
-Why would you use Abstract Factory?
-
