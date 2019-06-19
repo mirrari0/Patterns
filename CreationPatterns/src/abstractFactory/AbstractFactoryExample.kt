@@ -6,6 +6,20 @@ package abstractFactory
 interface Cook {
     val name : String
     fun cook()
+    val restaurant: Restaurant
+    fun workInfo() {
+        println("$name works in a ${restaurant.type}")
+        println("${restaurant.type} has a " + getEquipment())
+    }
+    private fun getEquipment() {
+        var equipmentList = ""
+        restaurant.equipment.forEach { equipmentList = " $equipmentList $it"  }
+    }
+}
+
+interface Restaurant {
+    val type: String
+    val equipment: List<String>
 }
 
 /**
@@ -50,6 +64,10 @@ class BurgerCookFactory : CookFactory {
             println("           (comes with Poutine Fries)")
         }
 
+        override val restaurant: Restaurant
+            get() = BurgerShop()
+
+
     }
 
     private class Tina : BurgerCook {
@@ -60,6 +78,17 @@ class BurgerCookFactory : CookFactory {
             println("Tina dropped the burger on the floor while cooking it")
         }
 
+        override val restaurant: Restaurant
+            get() = BurgerShop()
+
+    }
+
+    private class BurgerShop : Restaurant {
+        override val type: String
+            get() = "Burger Shop"
+
+        override val equipment: List<String>
+            get() = listOf("Grill", "Fryer", "Ice Cream Machine")
     }
 }
 
@@ -83,6 +112,9 @@ class PizzaCookFactory : CookFactory {
             println("Jimmy is cooking a bacon cheeseburger pizza")
         }
 
+        override val restaurant: Restaurant
+            get() = Pizzaria()
+
     }
 
     private class JimmyJr : PizzaCook {
@@ -93,6 +125,17 @@ class PizzaCookFactory : CookFactory {
         override fun cook() {
             println("Jimmy Junior started dancing rather than cooking a pizza")
         }
+
+        override val restaurant: Restaurant
+            get() = Pizzaria()
+    }
+
+    private class Pizzaria: Restaurant {
+        override val type: String
+            get() = "Pizzaria"
+
+        override val equipment: List<String>
+            get() = listOf("Pizza Oven", "Salad Bar")
     }
 }
 
